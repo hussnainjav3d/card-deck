@@ -13,6 +13,7 @@ import {
   Input,
   Spinner,
 } from "@chakra-ui/react";
+import { Layout } from "./components/Layout";
 
 function App() {
   interface IDeck {
@@ -83,6 +84,7 @@ function App() {
   };
   return (
     <>
+      <Layout />
       <Box w="50">
         <form onSubmit={handleSubmit}>
           <FormControl isRequired>
