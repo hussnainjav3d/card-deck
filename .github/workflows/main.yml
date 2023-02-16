@@ -27,7 +27,7 @@ jobs:
       - name: Installing Nodejs
         uses: actions/setup-node@v2-beta
         with:
-          node-version: 18
+          node-version: 16
 
       - name: Installing Yarn
         uses: borales/actions-yarn@v2.0.0
@@ -37,10 +37,12 @@ jobs:
       - name: Building Projects
         run: |
           cd client
-          yarn build
+          yarn add --save typescript-json-serializer
+          yarn run build
+        # env: CI:false
       # Runs a set of commands using the runners shell
       - name: Installing Surge To Deploy
         run: npm install -g surge
 
       - name: Deploy To Surge
-        run: surge ./build ${{secrets.DEPLOYED_URL}} --token ${{secrets.SURGE_TOKEN}}
+        run: surge ./client/dist ${{secrets.DEPLOYED_URL}} --token ${{secrets.SURGE_TOKEN}}
