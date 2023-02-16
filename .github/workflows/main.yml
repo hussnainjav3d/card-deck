@@ -2,11 +2,11 @@
 
 name: Deploy Card deck
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ master ]
+    branches: [master]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,18 +27,20 @@ jobs:
       - name: Installing Nodejs
         uses: actions/setup-node@v2-beta
         with:
-          node-version: 12
-        
+          node-version: 18
+
       - name: Installing Yarn
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-        
+
       - name: Building Projects
-        run: yarn build
+        run: |
+          cd client
+          yarn build
       # Runs a set of commands using the runners shell
       - name: Installing Surge To Deploy
         run: npm install -g surge
-      
+
       - name: Deploy To Surge
         run: surge ./build ${{secrets.DEPLOYED_URL}} --token ${{secrets.SURGE_TOKEN}}
